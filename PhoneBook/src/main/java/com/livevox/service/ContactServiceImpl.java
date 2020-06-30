@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.livevox.dto.ContactDTO;
+import com.livevox.exceptions.MissingFieldException;
 import com.livevox.model.Contact;
 import com.livevox.repository.ContactRepository;
 
@@ -26,7 +27,7 @@ public class ContactServiceImpl implements ContactService {
 			return true;
 		}
 		
-		return false;
+		throw new MissingFieldException("Name field cannot be null");
 		
 	}
 

@@ -1,7 +1,7 @@
 package com.livevox.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.livevox.dto.ContactDTO;
+import com.livevox.exceptions.MissingFieldException;
 import com.livevox.model.Contact;
 import com.livevox.repository.ContactRepository;
 
@@ -55,9 +56,14 @@ public class ContactServiceTest {
 	
 	@Test
 	public void testCreateContactFailed() {
-		when(contactRepository.save(any(Contact.class))).thenReturn(getContactTest());
-		boolean contactSaved = contactService.createContact(new ContactDTO());
-		assertFalse(contactSaved);//Name is required
+		Exception exception = assertThrows(MissingFieldException.class, () -> {
+			contactService.createContact(new ContactDTO());
+		});
+		
+		String expectedMessage = "Name field cannot be null";
+		String actualMessage = exception.getMessage();
+		
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 	
 	private Contact getContactTest() {

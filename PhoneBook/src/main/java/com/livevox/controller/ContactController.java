@@ -1,8 +1,5 @@
 package com.livevox.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +20,6 @@ public class ContactController {
 
 	/**
 	 * Loads the index page
-	 * @return
-	 * @throws IOException 
-	 * @throws ServletException 
 	 */
 	@RequestMapping(value="/")
 	public String homePage(HttpServletRequest request) {
@@ -47,7 +41,7 @@ public class ContactController {
 	}
 	
 	@PostMapping("/contacts")
-	public String createContact(@ModelAttribute ContactDTO contactDto, HttpServletRequest request) {
+	public String createContact(@ModelAttribute ContactDTO contactDto, HttpServletRequest request) throws Exception {
 		if(contactService.createContact(contactDto)) {
 			request.setAttribute("contacts", contactService.getAllContact());
 			return "index";

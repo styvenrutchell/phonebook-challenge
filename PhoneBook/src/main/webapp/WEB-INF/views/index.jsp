@@ -38,9 +38,9 @@
 				<div class="box">
 		    		<h2><i class="fa fa-search"></i>Search contact</h2>
 		    		<form class="pure-form" method="GET" action = "contacts">
-		    			<fieldset class="pure-group">
+		    			<!--  <fieldset class="pure-group">-->
 					    	<input type="text" class="pure-input-1-2" name="keyword">
-					     </fieldset>
+					
 					    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">
 					    <i class="fa fa-search"></i>Search</button>
 					</form>
